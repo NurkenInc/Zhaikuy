@@ -1,27 +1,44 @@
 import { useSyncExternalStore } from 'react';
-import { createStoreBase } from 'src/zhaikuy';
+import { createStoreBase } from '../zhaikuy';
 
-// actions, state
-type StoreProps = {
-  [stateName: string]: any
-} & {
-  [rest: string]: () => void // in actions will be called set func(setState)
-}
+type Action<T> = (set: (partial: T | ((state: T) => T)) => void) => void;
 
-export type TCreateStore = (setState: (newState: any) => void) => StoreProps
+type Actions<T> = {
+  [K in keyof T]: T[K] extends (...args: any[]) => any ? T[K] : never;
+};
 
-export const createStore = (cb: TCreateStore) => {
-  const { getActions, getState, subscribe } = createStoreBase(cb);
+export type StateCreator<T> = (
+  set: (partial: T | ((state: T) => T)) => void
+) => {
+  [key: string]: T[keyof T] | Action<T>; // Allow any state property and action function
+};
 
-  return () => {
-    // fix
-    // eslint-disable-next-line
-    // @ts-ignore
-    const state = useSyncExternalStore(subscribe, getState)
+export const createStore = <T>(createState: StateCreator<T>) => {
+  const { getState, setState, subscribe } = createStoreBase({} as T);
 
-    return {
-      state,
-      ...getActions()
+  const { ...store } = createState(setState);
+  const actions = [];
+  const state: any = {}
+
+  for (const key in store) {
+    if (typeof store[key] === 'function') {
+      actions.push(store[key])
+    } else {
+      state[key] = store[key];
     }
   }
-}
+  // init state
+  setState(state);
+
+  const useStore = () => {
+    const syncedState = useSyncExternalStore(subscribe, getState);
+    return {
+      ...store,
+      state: syncedState,
+    } as {
+      state: T;
+    } & Actions<any>
+  };
+
+  return useStore;
+};
