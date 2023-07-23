@@ -1,6 +1,6 @@
 {
   "name": "zhaikuy",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Kuy it's a simple state management library for react",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
