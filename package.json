@@ -1,6 +1,6 @@
 {
   "name": "zhaikuy",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Kuy it's a simple state management library for react",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3"    
+    "eslint-plugin-react-refresh": "^0.4.3"
   },
   "repository": {
     "type": "git",
