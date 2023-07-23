@@ -7,13 +7,12 @@
     "skipLibCheck": true,
 
     "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "declaration": true,
+    "outDir": "./dist",
     
     "strict": true,
     "strictNullChecks": true,
@@ -21,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
 }
