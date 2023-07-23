@@ -1,20 +1,41 @@
 import './App.css'
-import { sayHello, sayGoodbye } from 'zhaikuy'
+// import { createStore } from 'zhaikuy'
+import { createStore } from './lib';
+
+interface Counter {
+  count: number
+  incBy: number
+}
+
+// feature: make partial without need spread oper after mvp
+// feature make useStore to retrieve state in other components? like in zustand
+// start making doc
+const useStore = createStore<Counter>((set) => ({
+  count: 0,
+  incBy: 10,
+  inc: () => set((state) => ({ ...state, count: state.count + 1 })),
+  reset: () => set((state) => ({ ...state, count: 0 })),
+  incrementBySize: () => set((state) => ({ ...state, count: state.count + state.incBy }))
+}));
 
 function App() {
+  const { state, inc, reset, incrementBySize } = useStore();
 
-  const onHello = () => {
-    sayHello();
+  const increment = () => {
+    incrementBySize();
   }
 
-  const onBye = () => {
-    sayGoodbye();
+  const onReset = () => {
+    reset();
   }
 
   return (
     <>
-      <button onClick={onHello}>Hello</button>
-      <button onClick={onBye}>Bye</button>
+      <button onClick={increment}>Inc</button>
+      <button onClick={onReset}>Reset</button>
+      <div>
+        {state.count}
+      </div>
     </>
   )
 }
