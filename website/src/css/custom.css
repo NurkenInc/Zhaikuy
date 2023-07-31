@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300&family=Inter:wght@300;400;500;600&family=Josefin+Sans:ital,wght@1,300&family=Lexend+Deca&family=Lexend:wght@300;400&family=Merienda&display=swap');
+
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #948dff;
+  --ifm-color-primary-dark: #6861ff;
+  --ifm-color-primary-darker: #726bff;
+  --ifm-color-primary-darkest: #5854d8;
+  --ifm-color-primary-light: #7c79e1;
+  --ifm-color-primary-lighter: #827ef5;
+  --ifm-color-primary-lightest: #8a85ff;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+a.menu__link:not([href]) {
+  font-weight: bold;
+  cursor: default;
+}

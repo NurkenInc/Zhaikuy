@@ -13,6 +13,9 @@ export type StateCreator<T> = (
   [key: string]: T[keyof T] | Action<T>; // Allow any state property and action function
 };
 
+// feature: make partial without need spread oper after mvp
+// feature make useStore to retrieve state in other components? like in zustand
+// start making doc
 export const createStore = <T>(createState: StateCreator<T>) => {
   const { getState, setState, subscribe } = createStoreBase({} as T);
 
@@ -32,8 +35,9 @@ export const createStore = <T>(createState: StateCreator<T>) => {
 
   const useStore = () => {
     const syncedState = useSyncExternalStore(subscribe, getState);
+
     return {
-      ...store,
+      store: store,
       state: syncedState,
     } as {
       state: T;

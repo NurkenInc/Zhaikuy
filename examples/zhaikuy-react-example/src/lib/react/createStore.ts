@@ -1,43 +1,46 @@
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
 import { createStoreBase } from '../zhaikuy';
+import { StoreApi } from '../zhaikuy/createStoreBase';
 
 type Action<T> = (set: (partial: T | ((state: T) => T)) => void) => void;
-
-type Actions<T> = {
-  [K in keyof T]: T[K] extends (...args: any[]) => any ? T[K] : never;
-};
 
 export type StateCreator<T> = (
   set: (partial: T | ((state: T) => T)) => void
 ) => {
-  [key: string]: T[keyof T] | Action<T>; // Allow any state property and action function
+  [key: string]: T[keyof T] | Action<T>;
 };
 
-export const createStore = <T>(createState: StateCreator<T>) => {
-  const { getState, setState, subscribe } = createStoreBase({} as T);
+export const useStoreWithSelector = <T, Slice>(
+  api: StoreApi<T>,
+  selector: (state: T) => Slice,
+  equalityFn?: (a: Slice, b: Slice) => boolean
+): any => {
+  const slice = useSyncExternalStoreWithSelector(
+    api.subscribe,
+    api.getState,
+    api.getState,
+    selector,
+    equalityFn,
+  );
 
-  const { ...store } = createState(setState);
-  const actions = [];
-  const state: any = {}
+  return slice;
+};
 
-  for (const key in store) {
-    if (typeof store[key] === 'function') {
-      actions.push(store[key])
-    } else {
-      state[key] = store[key];
-    }
-  }
+export const createStore = <T>(
+  createState: StateCreator<T>
+) => {
+  const api = createStoreBase({} as T);
+  const { ...store } = createState(api.setState);
+  
   // init state
-  setState(state);
+  api.setState(store);
 
-  const useStore = () => {
-    const syncedState = useSyncExternalStore(subscribe, getState);
-    return {
-      ...store,
-      state: syncedState,
-    } as {
-      state: T;
-    } & Actions<any>
+  const useStore = <Slice>(
+    selector: (state: T) => Slice,
+    equalityFn?: (a: Slice, b: Slice) => boolean
+  ): Slice => {
+    const syncedState = useStoreWithSelector(api, selector, equalityFn);
+    return syncedState
   };
 
   return useStore;

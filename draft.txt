@@ -1,0 +1,19 @@
+// type ExtractState<S> = S extends { getState: () => infer T } ? T : never
+
+// type ReadonlyStoreApi<T> = Pick<StoreApi<T>, 'getState' | 'subscribe'>
+
+// type WithReact<S extends ReadonlyStoreApi<unknown>> = S & {
+//   getServerState?: () => ExtractState<S>
+// }
+
+// type UseBoundStore<S extends WithReact<ReadonlyStoreApi<unknown>>> = {
+//   (): ExtractState<S>;
+//   <K extends keyof ExtractState<S>>(
+//     selector: (state: ExtractState<S>) => ExtractState<S>[K],
+//     equalityFn?: (a: ExtractState<S>[K], b: ExtractState<S>[K]) => boolean
+//   ): ExtractState<S>[K];
+// } & S;
+
+type Actions<T> = {
+  [K in keyof T]: T[K] extends (...args: any[]) => any ? T[K] : never;
+};

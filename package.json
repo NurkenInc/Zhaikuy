@@ -1,30 +1,39 @@
 {
   "name": "zhaikuy",
   "version": "2.0.5",
-  "description": "Kuy it's a simple state management library for react",
+  "description": "Zhaikuy it's a simple state management library for react",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:compile": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
+    "build:clean": "rm -rf ./build",
+    "build": "npm-run build:clean compile"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.1.6",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3"
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "typescript": "^5.1.6"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/NurkenInc/Zhaikuy"
+  },
+  "dependencies": {
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
+    "react-router-dom": "^6.14.2",
+    "sort-by": "^1.2.0",
+    "zhaikuy": "^2.0.5"
   }
 }
