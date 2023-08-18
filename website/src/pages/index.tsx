@@ -47,13 +47,13 @@ function Hero() {
           <div>
             <Link
               className="button button--outline button--primary button--lg"
-              to={useBaseUrl('docs/introduction/installation')}>
+              to={useBaseUrl('docs/getting-started/installation')}>
                 Get Started
             </Link>
           </div>
           <div data-hero-explainer="first-row">
             <Link
-              to={useBaseUrl('docs/introduction/examples')}
+              to={useBaseUrl('docs/getting-started/example')}
             >
               Introduction
             </Link>

@@ -13,7 +13,7 @@ const config = {
   favicon: 'img/galaxy.png',
 
   // Set the production url of your site here
-  url: 'https://zhaikuy.vercel.app',
+  url: 'https://zhaikuy.netlify.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -97,7 +97,7 @@ const config = {
             items: [
               {
                 label: 'Docs',
-                to: '/docs/intro',
+                to: '/docs/getting-started/example',
               },
             ],
           },
